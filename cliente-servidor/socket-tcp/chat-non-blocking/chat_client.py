@@ -7,7 +7,6 @@ import signal
 import pickle
 import struct
 
-SERVER_HOST = 'localhost'
 
 def send(channel, *args):
     buffer = pickle.dumps(args) # Serialize the object
@@ -32,7 +31,7 @@ def receive(channel):
 
 class ChatClient:
     """ A command line chat client using select """
-    def __init__(self, name, port, host=SERVER_HOST):
+    def __init__(self, name, port, host='localhost'):
         self.name = name
         self.connected = False
         self.host = host

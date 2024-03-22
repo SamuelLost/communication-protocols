@@ -6,9 +6,7 @@ import sys
 import signal
 import pickle
 import struct
-import argparse
 
-SERVER_HOST = 'localhost'
 CHAT_SERVER_NAME = 'server'
 
 def send(channel, *args):
@@ -41,9 +39,10 @@ class ChatServer:
 
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Create a new socket
         self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # Enable reusing the same address
-        self.server.bind((SERVER_HOST, port))
+        self.server.bind(("", port))
 
-        print (f'Server listening to port: {port}...')
+        #print (f'Server listening to port: {port}...')
+        print(f"Server listening to {self.server.getsockname()}")
         self.server.listen(backlog)
 
         # Register signal handler
