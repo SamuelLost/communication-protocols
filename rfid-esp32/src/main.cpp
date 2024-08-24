@@ -14,7 +14,7 @@ int menu();
 void leitura_dados();
 void escreve_dados();
 
-//bjeto 'chave' é utilizado para autenticação
+//Objeto 'chave' é utilizado para autenticação
 MFRC522::MIFARE_Key key;
 
 //código de status de retorno da autenticação
@@ -40,12 +40,8 @@ void setup() {
 }
 
 void loop() {
-  // Aguarda a aproximacao do cartao
-  if (!mfrc522.PICC_IsNewCardPresent()) {
-    return;
-  }
-  // Seleciona um dos cartoes
-  if (!mfrc522.PICC_ReadCardSerial()) {
+  // Aguarda a aproximacao do cartao e Seleciona um dos cartoes
+  if (!mfrc522.PICC_IsNewCardPresent() || !mfrc522.PICC_ReadCardSerial()) {
     return;
   }
 
@@ -107,9 +103,10 @@ void leitura_dados() {
   num_cartao[2] = mfrc522.uid.uidByte[1];
   num_cartao[3] = mfrc522.uid.uidByte[0];
 
-  unsigned int num = num_cartao[0] << 24 | num_cartao[1] << 16 | num_cartao[2] << 8 | num_cartao[3];
+  // unsigned int num = num_cartao[0] << 24 | num_cartao[1] << 16 | num_cartao[2] << 8 | num_cartao[3];
+  unsigned int num = mfrc522.uid.uidByte[3] << 24 | mfrc522.uid.uidByte[2] << 16 | mfrc522.uid.uidByte[1] << 8 | mfrc522.uid.uidByte[0];
 
-  Serial.printf("Número do cartão: %u [", num);
+  Serial.printf("Número do cartão: %010u [", num);
   for (uint8_t i = 0; i < 4; i++) {
     Serial.printf("%02X", num_cartao[i]);
   }
