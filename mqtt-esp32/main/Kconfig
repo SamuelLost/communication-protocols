@@ -1,0 +1,27 @@
+menu "MQTT - Prática"
+
+    config WIFI_SSID
+        string "SSID da rede Wi-Fi"
+        default "my_ssid"
+        help
+            SSID (nome da rede) do seu roteador Wi-Fi.
+
+    config WIFI_PASSWORD
+        string "Senha da rede Wi-Fi"
+        default "my_password"
+        help
+            Senha da rede Wi-Fi.
+
+    config MAXIMUM_RETRY
+        int "Número máximo de tentativas de conexão"
+        default 5
+        help
+            Número máximo de tentativas de conexão ao broker MQTT.
+    
+    config MQTT_BROKER
+        string "Endereço do broker MQTT"
+        default "mqtt://mqtt.eclipseprojects.io"
+        help
+            Endereço do broker MQTT.
+
+endmenu
